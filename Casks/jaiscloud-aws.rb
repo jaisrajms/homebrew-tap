@@ -4,22 +4,22 @@ cask "jaiscloud-aws" do
 
   on_macos do
     on_intel do
-      sha256 "388e764523afd6dc053515ff00e26c5411585ca10806dceb7004489887586bc4"
+      sha256 "32917afa9472e58ba9eade403d17cde56586beaee5c972dfa3e0f200338eed78"
       url "https://github.com/jaisrajms/jaiscloud/releases/download/v#{version}/jaiscloud-aws_#{version}_darwin_amd64.tar.gz"
     end
     on_arm do
-      sha256 "6cb77e9292e32ed7d66859d1b2a5a16d14dbde91ada0367bbad6b22c66c2540d"
+      sha256 "aeaa597e868de11ac1d012901a15b6ef80b8b363d512711bf23deefb98eed2d3"
       url "https://github.com/jaisrajms/jaiscloud/releases/download/v#{version}/jaiscloud-aws_#{version}_darwin_arm64.tar.gz"
     end
   end
 
   on_linux do
     on_intel do
-      sha256 "abf67aa31090e63e644bc3991741d0ad4e2421964498914820d476360f4ee485"
+      sha256 "8ad6bd0d973fa464b537ad2bdc366767a7264986e10dcce2b67878cde71afad4"
       url "https://github.com/jaisrajms/jaiscloud/releases/download/v#{version}/jaiscloud-aws_#{version}_linux_amd64.tar.gz"
     end
     on_arm do
-      sha256 "19a3f4e17f59f169a2d9a67d71281bdb42d49234d9228f6e0c50aa6361d557c2"
+      sha256 "eefe24464774aae1ba16ff989115c52f8b7bd0bd38f7343d5f15d982acffebed"
       url "https://github.com/jaisrajms/jaiscloud/releases/download/v#{version}/jaiscloud-aws_#{version}_linux_arm64.tar.gz"
     end
   end
@@ -33,6 +33,12 @@ cask "jaiscloud-aws" do
   end
 
   binary "jaiscloud-aws"
+
+  postflight do
+    if OS.mac?
+      system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/jaiscloud-aws"]
+    end
+  end
 
   # No zap stanza required
 
